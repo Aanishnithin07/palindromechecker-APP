@@ -29,6 +29,7 @@ public class PalindromeCheckerApp {
 
         System.out.println("UC2 - Half Loop            : " + checkHalfLoop(input));
         System.out.println("UC3 - Reverse String       : " + checkReverse(input));
+        System.out.println("UC4 - Two Pointer          : " + checkTwoPointer(input));
         scanner.close();
 
     }
@@ -48,5 +49,20 @@ public class PalindromeCheckerApp {
             reversed.append(input.charAt(i));
         }
         return input.contentEquals(reversed);
+    }
+    // UC4 - Two Pointer
+    public static boolean checkTwoPointer(String input) {
+        char[] chars = input.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 }
