@@ -9,7 +9,7 @@ import java.util.*;
  * Now accepts input from user.
  *
  * @author Aanish Nithin A
- * @version 1.0
+ * @version 9.0
  */
 
 public class PalindromeCheckerApp {
@@ -35,10 +35,11 @@ public class PalindromeCheckerApp {
         System.out.println("UC7 - Deque Optimized      : " + checkDeque(input));
         System.out.println("UC8 - Linked List          : " + checkLinkedList(input));
         System.out.println("UC9 - Recursive            : " + checkRecursive(input, 0, input.length() - 1));
+        System.out.println("UC10 - Case & Space Ignore : " + checkIgnoreCaseAndSpace(input));
 
         scanner.close();
-
     }
+
     // UC2 - Half Loop
     public static boolean checkHalfLoop(String input) {
         for (int i = 0; i < input.length() / 2; i++) {
@@ -48,6 +49,7 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+
     // UC3 - Reverse String
     public static boolean checkReverse(String input) {
         StringBuilder reversed = new StringBuilder();
@@ -56,6 +58,7 @@ public class PalindromeCheckerApp {
         }
         return input.contentEquals(reversed);
     }
+
     // UC4 - Two Pointer
     public static boolean checkTwoPointer(String input) {
         char[] chars = input.toCharArray();
@@ -71,6 +74,7 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+
     // UC5 - Stack
     public static boolean checkStack(String input) {
         Stack<Character> stack = new Stack<>();
@@ -85,6 +89,7 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+
     // UC6 - Queue + Stack
     public static boolean checkQueueStack(String input) {
         Queue<Character> queue = new LinkedList<>();
@@ -102,6 +107,7 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+
     // UC7 - Deque
     public static boolean checkDeque(String input) {
         Deque<Character> deque = new LinkedList<>();
@@ -114,6 +120,27 @@ public class PalindromeCheckerApp {
             if (deque.removeFirst() != deque.removeLast()) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    // =====================================================
+    // UC10 - Case-Insensitive & Space-Ignored Palindrome Checker
+    // =====================================================
+    public static boolean checkIgnoreCaseAndSpace(String input) {
+        // Step 1: Normalize - remove all non-alphanumeric characters and convert to lowercase
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        // Step 2: Two pointer comparison on normalized string
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
         return true;
     }
@@ -148,4 +175,53 @@ public class PalindromeCheckerApp {
         }
     }
 
+    public static boolean checkLinkedList(String input) {
+        if (input == null || input.length() == 0) return true;
+
+        // Step 1: Build the singly linked list from the string
+        Node head = null;
+        Node tail = null;
+        for (char c : input.toCharArray()) {
+            Node newNode = new Node(c);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        // Step 2: Find the middle using Fast & Slow pointer technique
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;       // moves 1 step
+            fast = fast.next.next;  // moves 2 steps
+        }
+        // 'slow' is now at the start of the second half
+
+        // Step 3: In-place reversal of the second half
+        Node prev = null;
+        Node current = slow;
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        Node reversedHead = prev; // head of reversed second half
+
+        // Step 4: Compare first half and reversed second half
+        Node left = head;
+        Node right = reversedHead;
+        while (right != null) {
+            if (left.data != right.data) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
 }
