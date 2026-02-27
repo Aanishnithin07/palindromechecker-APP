@@ -28,13 +28,16 @@ public class PalindromeCheckerApp {
         System.out.println("-------------------------------------");
 
         System.out.println("UC2 - Half Loop            : " + checkHalfLoop(input));
-        System.out.println("UC3 - Reverse String       : " + checkReverse(input));
-        System.out.println("UC4 - Two Pointer          : " + checkTwoPointer(input));
-        System.out.println("UC5 - Stack                : " + checkStack(input));
-        System.out.println("UC6 - Queue + Stack        : " + checkQueueStack(input));
-        System.out.println("UC7 - Deque Optimized      : " + checkDeque(input));
-        System.out.println("UC8 - Linked List          : " + checkLinkedList(input));
-        System.out.println("UC9 - Recursive            : " + checkRecursive(input, 0, input.length() - 1));
-
         scanner.close();
+
     }
+    // UC2 - Half Loop
+    public static boolean checkHalfLoop(String input) {
+        for (int i = 0; i < input.length() / 2; i++) {
+            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
