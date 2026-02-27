@@ -32,6 +32,7 @@ public class PalindromeCheckerApp {
         System.out.println("UC4 - Two Pointer          : " + checkTwoPointer(input));
         System.out.println("UC5 - Stack                : " + checkStack(input));
         System.out.println("UC6 - Queue + Stack        : " + checkQueueStack(input));
+        System.out.println("UC7 - Deque Optimized      : " + checkDeque(input));
         scanner.close();
 
     }
@@ -93,6 +94,21 @@ public class PalindromeCheckerApp {
 
         while (!queue.isEmpty()) {
             if (queue.remove() != stack.pop()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // UC7 - Deque
+    public static boolean checkDeque(String input) {
+        Deque<Character> deque = new LinkedList<>();
+
+        for (char c : input.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 return false;
             }
         }
