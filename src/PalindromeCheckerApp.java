@@ -32,6 +32,10 @@ public class PalindromeCheckerApp {
         System.out.println("UC4 - Two Pointer          : " + checkTwoPointer(input));
         System.out.println("UC5 - Stack                : " + checkStack(input));
         System.out.println("UC6 - Queue + Stack        : " + checkQueueStack(input));
+        System.out.println("UC7 - Deque Optimized      : " + checkDeque(input));
+        System.out.println("UC8 - Linked List          : " + checkLinkedList(input));
+        System.out.println("UC9 - Recursive            : " + checkRecursive(input, 0, input.length() - 1));
+
         scanner.close();
 
     }
@@ -98,4 +102,50 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+    // UC7 - Deque
+    public static boolean checkDeque(String input) {
+        Deque<Character> deque = new LinkedList<>();
+
+        for (char c : input.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // =====================================================
+    // UC9 - Recursive Palindrome Checker
+    // =====================================================
+    public static boolean checkRecursive(String input, int start, int end) {
+        // Base condition: if start >= end, all characters matched
+        if (start >= end) {
+            return true;
+        }
+        // If characters at start and end don't match, not a palindrome
+        if (input.charAt(start) != input.charAt(end)) {
+            return false;
+        }
+        // Recursive call: move start forward and end backward
+        return checkRecursive(input, start + 1, end - 1);
+    }
+
+    // =====================================================
+    // UC8 - Linked List Based Palindrome Checker
+    // =====================================================
+    // Inner Node class for singly linked list
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
 }
