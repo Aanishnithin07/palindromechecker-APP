@@ -31,6 +31,7 @@ public class PalindromeCheckerApp {
         System.out.println("UC3 - Reverse String       : " + checkReverse(input));
         System.out.println("UC4 - Two Pointer          : " + checkTwoPointer(input));
         System.out.println("UC5 - Stack                : " + checkStack(input));
+        System.out.println("UC6 - Queue + Stack        : " + checkQueueStack(input));
         scanner.close();
 
     }
@@ -75,6 +76,23 @@ public class PalindromeCheckerApp {
 
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // UC6 - Queue + Stack
+    public static boolean checkQueueStack(String input) {
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : input.toCharArray()) {
+            queue.add(c);
+            stack.push(c);
+        }
+
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 return false;
             }
         }
