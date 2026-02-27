@@ -36,6 +36,7 @@ public class PalindromeCheckerApp {
         System.out.println("UC8 - Linked List          : " + checkLinkedList(input));
         System.out.println("UC9 - Recursive            : " + checkRecursive(input, 0, input.length() - 1));
         System.out.println("UC10 - Case & Space Ignore : " + checkIgnoreCaseAndSpace(input));
+        scanner.close();
 
         scanner.close();
     }
