@@ -40,6 +40,7 @@ public class PalindromeCheckerApp {
         System.out.println("UC10 - Case & Space Ignore : " + checkIgnoreCaseAndSpace(input));
         PalindromeChecker checker = new PalindromeChecker(input);
         System.out.println("UC11 - OOP Service         : " + checker.checkPalindrome());
+        scanner.close();
 
         scanner.close();
     }
